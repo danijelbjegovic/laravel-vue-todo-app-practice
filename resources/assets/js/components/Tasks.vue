@@ -35,6 +35,12 @@
                             </ul>
                         </div>
                     </div>
+
+                    <div class="card-footer" v-if="tasks.length">
+                        <span class="badge badge-primary">You have {{ tasks.length }} task/s</span>
+                        <span class="badge badge-warning">{{ remainingTasks() }} left</span>
+                        <span class="badge badge-success">{{ completedTasks() }} completed</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -94,6 +100,14 @@
                 .catch((err)=>{
                     console.log(err);
                 })
+            },
+            remainingTasks(){
+                return this.tasks.filter(task=>{return !task.completed})
+                    .length
+            },
+            completedTasks(){
+                return this.tasks.filter(task=>{return task.completed})
+                    .length
             }
         }
     }
